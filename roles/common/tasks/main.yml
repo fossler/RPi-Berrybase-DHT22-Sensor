@@ -16,5 +16,5 @@
       - setuptools 
       - wheel
     state: latest
-    tags:
-      - always
+  tags:
+    - always

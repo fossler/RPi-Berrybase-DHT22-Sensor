@@ -8,7 +8,7 @@
   - name: "Render python script"
     template:
       src: "Berrybase-DHT22.py.j2"
-      dest: "{{ install_path }}"
+      dest: "{{ install_path }}/Berrybase-DHT22.py"
       owner: "root"
       group: "root"
       mode: '0640'

@@ -4,6 +4,5 @@ all:
     celler:
       hosts:
         192.168.1.223:
-    livingroom:
-      hosts:
-        tbd:
+      vars:
+        ansible_user: pi
