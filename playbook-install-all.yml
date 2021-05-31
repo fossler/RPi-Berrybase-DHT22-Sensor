@@ -1,0 +1,22 @@
+---
+# install all
+- hosts: "{{ host }}"
+  become: yes
+  max_fail_percentage: 0
+  tasks:
+    - block:
+
+      - include_role:
+          name: common
+        tags:
+        - always
+
+      - include_role:
+          name: barrybase-hdt22.py
+        tags:
+          - always
+
+      - include_role:
+          name: barrybase-hdt22-webinterface
+        tags:
+          - always

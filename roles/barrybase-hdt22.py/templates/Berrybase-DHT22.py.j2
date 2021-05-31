@@ -6,7 +6,6 @@ import Adafruit_DHT
 
 DHT_SENSOR = Adafruit_DHT.DHT22
 DHT_PIN = 4
-TIMESLEEP = 300 # 5 min
 
 try:
     f = open('/home/pi/humidity.csv', 'a+')
@@ -25,4 +24,4 @@ while True:
     else:
         print("Failed to retrieve data from humidity sensor")
 
-    time.sleep(TIMESLEEP)
+    time.sleep({{ TIMESLEEP }})

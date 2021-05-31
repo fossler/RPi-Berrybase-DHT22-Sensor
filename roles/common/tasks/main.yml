@@ -1,0 +1,20 @@
+---
+- name: "install apt pkg's"
+  ansible.builtin.apt:
+    pkg:
+      - git
+      - vim
+      - python3-dev 
+      - python3-pip
+  tags:
+    - always
+
+- name: Install python pip modules
+  ansible.builtin.pip:
+    name:
+      - pip 
+      - setuptools 
+      - wheel
+    state: latest
+    tags:
+      - always

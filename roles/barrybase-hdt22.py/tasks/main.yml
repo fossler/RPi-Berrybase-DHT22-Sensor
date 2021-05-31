@@ -1,0 +1,14 @@
+---
+- block: 
+  - name: make install folder
+    file:
+      path: "{{ install_path }}"
+      state: directory
+
+  - name: "Render python script"
+    template:
+      src: "Berrybase-DHT22.py.j2"
+      dest: "{{ install_path }}"
+      owner: "root"
+      group: "root"
+      mode: '0640'
