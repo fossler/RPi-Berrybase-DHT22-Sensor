@@ -1,0 +1,45 @@
+---
+- block: 
+  - name: Add py running user
+    user:
+      name: "{{ py_user }}"
+      comment: "{{ py_user | capitalize }}"
+      shell: /bin/bash
+      create_home: no
+      state: present
+      append: yes
+      groups:
+        - gpio
+        - www-data
+
+  - name: make install folder
+    file:
+      path: "{{ install_path }}"
+      state: directory
+      owner: "{{ py_user }}"
+      group: "{{ py_user }}"
+      mode: ug=rwX,o=rX
+
+  - name: "Render python script"
+    template:
+      src: "Berrybase-DHT22.py.j2"
+      dest: "{{ install_path }}/Berrybase-DHT22.py"
+      owner: "{{ py_user }}"
+      group: "{{ py_user }}"
+      mode: '0640'
+
+  - name: "Render service file"
+    template:
+      src: "berrybase-dht22.service.j2"
+      dest: "/etc/systemd/system/berrybase-dht22.service"
+      owner: "root"
+      group: "root"
+      mode: '0644'
+
+  - name: Start py service
+    ansible.builtin.systemd:
+      name: berrybase-dht22.service
+      state: started
+      daemon_reload: yes
+      enabled: yes
+

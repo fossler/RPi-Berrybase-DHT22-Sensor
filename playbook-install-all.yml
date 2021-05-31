@@ -12,11 +12,11 @@
         - always
 
       - include_role:
-          name: barrybase-hdt22.py
+          name: berrybase-hdt22.py
         tags:
           - always
 
       - include_role:
-          name: barrybase-hdt22-webinterface
+          name: berrybase-hdt22-webinterface
         tags:
           - always

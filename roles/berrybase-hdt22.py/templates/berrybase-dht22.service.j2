@@ -1,0 +1,13 @@
+[Unit]
+Description=Berrybase DHT22 humidity & temperature sensor
+After=multi-user.target
+
+[Service]
+WorkingDirectory={{ install_path }}
+User={{ py_user }}
+Type=idle
+ExecStart=/usr/bin/python3 {{ install_path }}/Berrybase-DHT22.py &> /dev/null
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
