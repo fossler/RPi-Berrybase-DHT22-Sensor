@@ -1,12 +1,7 @@
 ---
 - name: "install apt pkg's"
   ansible.builtin.apt:
-    pkg:
-      - git
-      - vim
-      - python3-dev 
-      - python3-pip
-      - apache2
+    pkg: "{{ apt_pkgs }}"
   tags:
     - always
 

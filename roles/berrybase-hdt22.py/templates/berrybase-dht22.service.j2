@@ -6,7 +6,7 @@ After=multi-user.target
 WorkingDirectory={{ install_path }}
 User={{ py_user }}
 Type=idle
-ExecStart=/usr/bin/python3 {{ install_path }}/Berrybase-DHT22.py &> /dev/null
+ExecStart=/usr/bin/python3 {{ install_path }}/{{ py_script_name }} &> /dev/null
 Restart=always
 
 [Install]

@@ -10,19 +10,25 @@
 
   - name: "Render html files"
     ansible.builtin.template:
-      src: "index.html.j2"
-      dest: "/var/www/html/index.html"
+      src: "{{ item }}.j2"
+      dest: "/var/www/html/{{ item }}"
       owner: "www-data"
       group: "www-data"
       mode: '0644'
+    loop:
+      - index.html
+      - index2.html
 
   - name: "Render js files"
     ansible.builtin.template:
-      src: "index.js.j2"
-      dest: "/var/www/html/js/index.js"
+      src: "{{ item }}.j2"
+      dest: "/var/www/html/js/{{ item }}"
       owner: "www-data"
       group: "www-data"
       mode: '0644'
+    loop:
+      - index.js
+      - index2.js
 
   - name: Start httpd service
     ansible.builtin.systemd:

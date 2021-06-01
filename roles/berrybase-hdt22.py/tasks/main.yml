@@ -14,31 +14,42 @@
 
   - name: make install folder
     file:
-      path: "{{ install_path }}"
+      path: "{{ item }}"
       state: directory
       owner: "{{ py_user }}"
       group: "{{ py_user }}"
       mode: ug=rwX,o=rX
+    loop:
+      - '{{ install_path }}'
+      - '{{ csv_file_path }}'
 
   - name: "Render python script"
     template:
       src: "Berrybase-DHT22.py.j2"
-      dest: "{{ install_path }}/Berrybase-DHT22.py"
+      dest: "{{ install_path }}/{{ py_script_name }}"
       owner: "{{ py_user }}"
       group: "{{ py_user }}"
-      mode: '0640'
+      mode: '0644'
 
+  - name: "Render watch script"
+    template:
+      src: "watch-temp.sh.j2"
+      dest: "/usr/local/bin/berrywatch"
+      owner: "{{ py_user }}"
+      group: "{{ py_user }}"
+      mode: '0755'
+ 
   - name: "Render service file"
     template:
       src: "berrybase-dht22.service.j2"
-      dest: "/etc/systemd/system/berrybase-dht22.service"
+      dest: "/etc/systemd/system/{{ service_name }}.service"
       owner: "root"
       group: "root"
       mode: '0644'
 
   - name: Start py service
     ansible.builtin.systemd:
-      name: berrybase-dht22.service
+      name: '{{ service_name }}.service'
       state: started
       daemon_reload: yes
       enabled: yes
