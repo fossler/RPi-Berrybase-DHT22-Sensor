@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+BerryPID=$(ps -ef | grep -i berrybase | grep -v grep | awk '{print $2}') && sudo tail -f /proc/${BerryPID}/fd/3
