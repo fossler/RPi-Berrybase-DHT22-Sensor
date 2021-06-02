@@ -11,6 +11,7 @@
       groups:
         - gpio
         - www-data
+    when: req_installed.stat.exists == false
 
   - name: make install folder
     file:
@@ -22,6 +23,7 @@
     loop:
       - '{{ install_path }}'
       - '{{ csv_file_path }}'
+    when: req_installed.stat.exists == false
 
   - name: "Render python script"
     template:
@@ -33,7 +35,7 @@
 
   - name: "Render watch script"
     template:
-      src: "watch-temp.sh.j2"
+      src: "watch.py.j2"
       dest: "/usr/local/bin/berrywatch"
       owner: "{{ py_user }}"
       group: "{{ py_user }}"

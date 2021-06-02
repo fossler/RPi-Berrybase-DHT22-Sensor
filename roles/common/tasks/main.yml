@@ -1,17 +1,33 @@
 ---
-- name: "install apt pkg's"
-  ansible.builtin.apt:
-    pkg: "{{ apt_pkgs }}"
-  tags:
-    - always
+- block:
+  - name: check if requirements are already initialized
+    stat:
+      path: "{{ install_path }}/.requirements.ok"
+    register: req_installed
 
-- name: Install python pip modules
-  ansible.builtin.pip:
-    name:
-      - pip 
-      - setuptools 
-      - wheel
-      - Adafruit_DHT
-    state: latest
-  tags:
-    - always
+  - name: "install apt pkg's"
+    ansible.builtin.apt:
+      pkg: "{{ apt_pkgs }}"
+    when: req_installed.stat.exists == false
+    tags:
+      - always
+
+  - name: Install python pip modules
+    ansible.builtin.pip:
+      name:
+        - pip 
+        - setuptools 
+        - wheel
+        - Adafruit_DHT
+      state: latest
+    when: req_installed.stat.exists == false
+    tags:
+      - always
+
+  - name: Create "{{ install_path }}/.requirements.ok"
+    file:
+      path: "{{ install_path }}/.requirements.ok"
+      state: touch
+      owner: "{{ py_user }}"
+      group: "{{ py_user }}"
+      mode: '0644'
