@@ -8,6 +8,10 @@
   - name: "install apt pkg's"
     ansible.builtin.apt:
       pkg: "{{ apt_pkgs }}"
+      state: present
+      update_cache: yes
+      update_cache_retries: 2
+      upgrade: no
     when: req_installed.stat.exists == false
     tags:
       - always
