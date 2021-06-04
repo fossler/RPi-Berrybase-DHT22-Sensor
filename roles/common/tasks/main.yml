@@ -1,7 +1,7 @@
 ---
 - block:
   - name: check if requirements are already initialized
-    stat:
+    ansible.builtin.stat:
       path: "{{ install_path }}/.requirements.ok"
     register: req_installed
 
@@ -25,7 +25,7 @@
       - always
 
   - name: Create "{{ install_path }}/.requirements.ok"
-    file:
+    ansible.builtin.file:
       path: "{{ install_path }}/.requirements.ok"
       state: touch
       owner: "{{ py_user }}"

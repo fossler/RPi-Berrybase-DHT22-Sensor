@@ -1,7 +1,7 @@
 ---
 - block: 
   - name: Add py running user
-    user:
+    ansible.builtin.user:
       name: "{{ py_user }}"
       comment: "{{ py_user | capitalize }}"
       shell: /bin/bash
@@ -14,7 +14,7 @@
     when: req_installed.stat.exists == false
 
   - name: make install folder
-    file:
+    ansible.builtin.file:
       path: "{{ item }}"
       state: directory
       owner: "{{ py_user }}"
@@ -26,7 +26,7 @@
     when: req_installed.stat.exists == false
 
   - name: "Render python script"
-    template:
+    ansible.builtin.template:
       src: "Berrybase-DHT22.py.j2"
       dest: "{{ install_path }}/{{ py_script_name }}"
       owner: "{{ py_user }}"
@@ -34,7 +34,7 @@
       mode: '0644'
 
   - name: "Render watch script"
-    template:
+    ansible.builtin.template:
       src: "watch.py.j2"
       dest: "/usr/local/bin/berrywatch"
       owner: "{{ py_user }}"
@@ -42,7 +42,7 @@
       mode: '0755'
  
   - name: "Render service file"
-    template:
+    ansible.builtin.template:
       src: "berrybase-dht22.service.j2"
       dest: "/etc/systemd/system/{{ service_name }}.service"
       owner: "root"
