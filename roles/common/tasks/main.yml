@@ -31,7 +31,7 @@
   - name: Create "{{ install_path }}/.requirements.ok"
     ansible.builtin.file:
       path: "{{ install_path }}/.requirements.ok"
-      state: touch
+      state: file
       owner: "{{ py_user }}"
       group: "{{ py_user }}"
       mode: '0644'
