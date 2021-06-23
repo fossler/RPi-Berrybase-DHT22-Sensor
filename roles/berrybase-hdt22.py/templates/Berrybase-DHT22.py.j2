@@ -10,7 +10,7 @@ DHT_PIN = 4
 try:
     f = open('{{ csv_file_path }}/{{ csv_file_name }}', 'a+')
     if os.stat('{{ csv_file_path }}/{{ csv_file_name }}').st_size == 0:
-            f.write('Date&Time,Temperature,Humidity\r\n')
+            f.write('#Date&Time,Temperature,Humidity\r\n')
 except:
     pass
 
