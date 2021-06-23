@@ -5,6 +5,6 @@ py_script_name: 'Berrybase-DHT22.py'
 csv_file_path: '/var/opt/{{ install_name }}'
 csv_file_name: 'humidity_and_temp.csv'
 service_name: 'berrybase-dht22'
-sleeptime: '300'
+sleeptime: '900'
 py_user: "berrybase"
 remote_user: "pi"
